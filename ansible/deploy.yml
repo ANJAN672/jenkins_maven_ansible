@@ -1,5 +1,6 @@
 - name: Deploy Maven JAR
   hosts: app
+  become: yes  # <- This gives sudo access
   tasks:
     - name: Ensure target directory exists
       file:
@@ -9,5 +10,5 @@
 
     - name: Copy JAR file
       copy:
-        src: ../target/myapp-1.0-SNAPSHOT.jar
+        src: ../target/my-app-1.0-SNAPSHOT.jar
         dest: /opt/myapp/myapp.jar
