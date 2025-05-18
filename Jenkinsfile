@@ -3,19 +3,19 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "M3"
-        jdk "Java 17"
+        maven 'Maven 3'
+        jdk 'Java 17'
     }
 
     stages {
-        stage('Build Maven Proje') {
+        stage('Build Maven Project') {
             steps {
                 // Run Maven on a Unix agent.
                 sh "mvn clean package"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
-        stage('Archive Artifact'){
+        stage('Archive JAR'){
             steps{
                 archiveArtifacts artifacts: 'target/*.jar'
             }
