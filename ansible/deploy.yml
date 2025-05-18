@@ -3,11 +3,11 @@
   tasks:
     - name: Ensure target directory exists
       file:
-        path: /opt/my-app
+        path: /home/jenkins/myapp
         state: directory
         mode: '0755'
 
     - name: Copy JAR file
       copy:
         src: ../target/my-app-1.0-SNAPSHOT.jar
-        dest: /opt/myapp/myapp.jar
+        dest: /home/jenkins/myapp/myapp.jar
