@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+        jdk "Java 17"
+    }
+
+    stages {
+        stage('Build Maven Proje') {
+            steps {
+                // Run Maven on a Unix agent.
+                sh "mvn clean package"
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        stage('Archive Artifact'){
+            steps{
+                archiveArtifacts artifacts: 'target/*.jar'
+            }
+        }
+        stage('Deploy with Ansible'){
+            steps{
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy.yml'
+            }
+        }
+        }
+    }
+}
